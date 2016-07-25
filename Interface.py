@@ -2,12 +2,16 @@ from Ticket import Ticket
 from Lottery import Lottery
 import sys
 
+"""
+  Interface - for console input
+"""
 class Interface(object):
 
   def __init__(self):
     self.option = 'ticket'
     self.positional = ['1st', '2nd', '3rd', '4th', '5th']
 
+  # input powerball tickets
   def ticket(self, ticket):
     if ticket.fname == None or ticket.fname == "":
       fname = raw_input("Enter your first name: ")
@@ -34,6 +38,7 @@ if __name__ == '__main__':
   lottery = Lottery()
   interface.option = 'ticket'
   while interface.option != "":
+    # Input ticket information
     if interface.option == 'ticket':
       interface.ticket(ticket)
       if ticket.fname and ticket.lname and len(ticket.numbers) == 5 and ticket.powerball > 0:
@@ -43,6 +48,7 @@ if __name__ == '__main__':
         i = raw_input("Do you want to continue adding numbers? [y,n]")
         print("")
         if i == 'n': interface.option = 'pick'
+    # Run lottery tickets
     elif interface.option == 'pick':
       print("")
       lottery.runLottery()

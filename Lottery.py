@@ -3,13 +3,18 @@ from random import randint
 from collections import defaultdict
 from Ticket import Ticket
 
+"""
+  Lottery stores tickets, runs tallys and picks winning numbers.
+"""
 class Lottery(object):
 
+  # Singleton class
   def __new__(cls, *args, **kwargs):
     if not hasattr(cls, '_lottery'):
       cls._lottery = super(Lottery, cls).__new__(cls, *args, **kwargs)
     return cls._lottery
 
+  # basic init
   def __init__(self, tickets=[]):
     self.tickets = tickets
     self.tally = defaultdict(int)
@@ -17,9 +22,11 @@ class Lottery(object):
     self.picks = []
     self.powerballs = []
 
+  # Add ticket to ticket store
   def addTickets(self, tickets):
       self.tickets.append(tickets)
 
+  # pick top numbers
   def topNumbers(self):
     previous = 0
     t = []
@@ -37,10 +44,12 @@ class Lottery(object):
       else:
         self.picks.append(s[randint(0,len(s)-1)])
 
+  # pick remaining winning numbers
   def fillIn(self):
     for pick in xrange(5-len(self.picks)):
       self.picks.append(str(randint(0,64)))
 
+  # pick winning powerball number
   def pickPowerball(self):
     previous = 0
     powerball = 0
@@ -56,6 +65,7 @@ class Lottery(object):
     else:
       self.powerball = picks[randint(0,len(picks)-1)]
 
+  # Tally or count numbers on powerball tickets
   def tallyTickets(self):
     self.tally = defaultdict(int)
     self.tallyPowerball = defaultdict(int)
@@ -64,6 +74,7 @@ class Lottery(object):
         self.tally[str(number)] += 1
       self.tallyPowerball[str(ticket.powerball)] += 1
 
+  # print entered ticket info.
   def printTickets(self):
     numbers = ""
     for ticket in self.tickets:
@@ -77,6 +88,7 @@ class Lottery(object):
         ticket.numbers[4],
         ticket.powerball))
 
+  # Run lottery, talley, selection and remaining numbers.
   def runLottery(self):
     self.printTickets()
     self.tallyTickets()

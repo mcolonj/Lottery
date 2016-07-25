@@ -1,6 +1,5 @@
 from Ticket import Ticket
 from Lottery import Lottery
-import sys
 
 """
   Interface - for console input

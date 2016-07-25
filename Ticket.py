@@ -1,4 +1,4 @@
-from collections import Counter, deque, namedtuple
+from collections import deque
 
 class Ticket(object):
 
